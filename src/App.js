@@ -1,11 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
-import FormCadastro from './components/FormCadastro';
-import FormLogin from './components/FormLogin';
+import { Provider } from "react-redux";
+import { createStore } from 'redux';
+
+import Routes from './Routes'
+import reducers from './Reducers'
 
 export default props => (
-    <View style={{flex: 1}}>
-        <FormLogin />
-        <FormCadastro />
-    </View>
+    <Provider store={createStore(reducers)}>
+        <Routes />
+    </Provider>
 )
