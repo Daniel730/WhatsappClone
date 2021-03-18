@@ -14,6 +14,7 @@ class FormLogin extends Component {
             <Image style={{flex: 1, width: null}} blurRadius={1.5} source={require('../imgs/bg.png')}>
                 <View style={styles.container}>
                     <View style={styles.viewTitle}>
+                        <Image source={require('../imgs/logo.png')} />
                         <Text style={{fontSize: 40, fontWeight: 'bold', color: 'black'}}>Whatsapp Clone</Text>
                     </View>
                     <TextInput
