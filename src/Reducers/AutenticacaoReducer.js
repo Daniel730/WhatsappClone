@@ -5,6 +5,7 @@ import {
     CADASTRO_USUARIO_ERRO,
     CADASTRO_USUARIO_SUCESSO,
     LOGIN_USUARIO_ERRO,
+    LOGIN_USUARIO_SUCESSO,
     LOGIN_EM_ANDAMENTO,
     CADASTRO_EM_ANDAMENTO
 } from "./../Actions/types"
@@ -31,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, erroCadastro: action.payload, loadingCadastro: false };
         case CADASTRO_USUARIO_SUCESSO:
             return {...state, senha: '', nome: '', loadingCadastro: false};
+        case LOGIN_USUARIO_SUCESSO:
+            return {...state, senha: '', loadingLogin: false};
         case LOGIN_USUARIO_ERRO:
             return {...state, erroLogin: action.payload, loadingLogin: false};
         case LOGIN_EM_ANDAMENTO:

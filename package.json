@@ -13,6 +13,7 @@
 		"react-native": "0.44.0",
 		"react-native-masked-text": "^1.13.0",
 		"react-native-router-flux": "^3.38.0",
+		"react-native-tab-view": "0.0.65",
 		"react-redux": "^5.0.4",
 		"redux": "^3.6.0",
 		"redux-thunk": "^2.3.0"
