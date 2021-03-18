@@ -1,3 +1,13 @@
+import {
+    MODIFICA_EMAIL,
+    MODIFICA_NOME,
+    MODIFICA_SENHA,
+    CADASTRO_USUARIO_ERRO,
+    CADASTRO_USUARIO_SUCESSO,
+    LOGIN_USUARIO_SUCESSO,
+    LOGIN_USUARIO_ERRO
+} from "./../Actions/types"
+
 const INITIAL_STATE = {
     nome: '',
     email: '',
@@ -7,23 +17,20 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    if(action.type === "modifica_email"){
-        return { ...state, email: action.payload }
+    switch (action.type) {
+        case MODIFICA_EMAIL: 
+            return { ...state, email: action.payload };
+        case MODIFICA_SENHA: 
+            return { ...state, senha: action.payload };
+        case MODIFICA_NOME: 
+            return { ...state, nome: action.payload };
+        case CADASTRO_USUARIO_ERRO: 
+            return { ...state, erroCadastro: action.payload };
+        case CADASTRO_USUARIO_SUCESSO:
+            return {...state, senha: '', nome: ''};
+        case LOGIN_USUARIO_ERRO:
+            return {...state, erroLogin: action.payload};
+        default:
+            return state;
     }
-    if(action.type === "modifica_senha"){
-        return { ...state, senha: action.payload }
-    }
-    if(action.type === "modifica_nome"){
-        return { ...state, nome: action.payload }
-    }
-    if(action.type === "cadastro_usuario_erro"){
-        return { ...state, erroCadastro: action.payload }
-    }
-    if(action.type === "cadastro_usuario_sucesso"){
-        return {...state, senha: '', nome: ''};
-    }
-    if(action.type === "login_usuario_erro"){
-        return {...state, erroLogin: action.payload}
-    }
-    return state;
 }
