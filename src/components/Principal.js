@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { TabViewAnimated, SceneMap } from 'react-native-tab-view';
 import TabBarMenu from './TabBarMenu';
-
-const Conversas = () => <View style={[ styles.container, { backgroundColor: '#ff4081' } ]} />;
-const Contatos = () => <View style={[ styles.container, { backgroundColor: '#673ab7' } ]} />;
+import Conversas from './Conversas';
+import Contatos from './Contatos';
 
 export default class Principal extends Component {
   state = {
@@ -26,13 +25,16 @@ export default class Principal extends Component {
 
   render() {
     return (
-      <TabViewAnimated
-        style={styles.container}
-        navigationState={this.state}
-        renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
-        onRequestChangeTab={this._handleChangeTab}
-      />
+      <Image style={{flex: 1, width: null}} blurRadius={1.5} source={require('../imgs/bg.png')}>
+        <TabViewAnimated
+          style={styles.container}
+          navigationState={this.state}
+          renderScene={this._renderScene}
+          renderHeader={this._renderHeader}
+          onRequestChangeTab={this._handleChangeTab}
+        />
+      </Image>
+     
     );
   }
 }
