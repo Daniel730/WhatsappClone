@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import b64 from 'base-64';
 import _ from "lodash";
 
-import {MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO} from "./types";
+import {MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO, ADICIONA_CONTATO_SUCESSO} from "./types";
 
 export const modificaAdionaContatoEmail = texto => {
     return {
@@ -19,8 +19,7 @@ export const adicionaContato = email => {
             .once('value')
             .then(snapshot => {
                 if(snapshot.val()){
-                    //email do usuario a ser adicionado 
-                    //email
+                    //email do usuario a ser adicionado
                     const dadosUsuario = _.first(_.values(snapshot.val()));
                     //email  do usuário autenticado
                     const {currentUser} = firebase.auth();
@@ -29,12 +28,31 @@ export const adicionaContato = email => {
                     firebase.database().ref(`/usuario_contatos/${emailUsuariob64}`)
                         .push({email, nome: dadosUsuario.nome})
                         .then(() => {
-                            alert("Sucesso!")
+                            adicionaContatoSucesso(dispatch)
                         })
-                        .catch(err => alert(err));
+                        .catch(err => adicionaContatoErro(err.message, dispatch));
                 }else{
                     dispatch({type: ADICIONA_CONTATO_ERRO, payload: "Email informado não corresponde a um usuário válido!"})
                 }
             })
     }
 }
+
+const adicionaContatoErro = (erro, dispatch) => (
+    dispatch({
+        type: ADICIONA_CONTATO_ERRO, 
+        payload: erro
+    })
+)
+
+const adicionaContatoSucesso = dispatch => {
+    dispatch({
+        type: ADICIONA_CONTATO_SUCESSO,
+        payload: true
+    })
+}
+
+export const habilitaInclusaoContato = () => ({
+    type: ADICIONA_CONTATO_SUCESSO,
+    payload: false
+})
