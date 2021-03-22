@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import b64 from 'base-64';
 import _ from "lodash";
 
-import {MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO, ADICIONA_CONTATO_SUCESSO} from "./types";
+import {MODIFICA_ADICIONA_CONTATO_EMAIL, ADICIONA_CONTATO_ERRO, ADICIONA_CONTATO_SUCESSO, LISTA_CONTATO_USUARIO} from "./types";
 
 export const modificaAdionaContatoEmail = texto => {
     return {
@@ -56,3 +56,15 @@ export const habilitaInclusaoContato = () => ({
     type: ADICIONA_CONTATO_SUCESSO,
     payload: false
 })
+
+export const contatosUsuarioFetch = () => {
+    const { currentUser} = firebase.auth();
+    
+    return (dispatch) => {
+        let emailUsuariob64 = b64.encode(currentUser.email)
+        firebase.database().ref(`/usuario_contatos/${emailUsuariob64}`)
+            .on("value", snapshot => {
+                dispatch({type: LISTA_CONTATO_USUARIO, payload: snapshot.val()})
+            })
+    }
+}
